@@ -1,13 +1,20 @@
 ﻿namespace ControleBancario
 {
+    using ControleBancario.Model;
+    using ControleBancario.Mapping;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
     public class ApplicationContext : IdentityDbContext
     {
-        //public DbSet<Model> NomeTabela { get; set; }
+        public DbSet<User> TbUsers { get; set; }
 
         public ApplicationContext()
+        {
+
+        }
+
+        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
 
         }
@@ -22,7 +29,7 @@
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            //new UserMapping().Mapping(ref builder);
+            new UserMapping().Mapping(ref builder);
 
             base.OnModelCreating(builder);
         }
