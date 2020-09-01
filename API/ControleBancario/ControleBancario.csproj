@@ -5,6 +5,12 @@
     <NoWarn>$(NoWarn);1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Migrations\20200901003019_Alterando o campo email para 100 caracters.cs" />
+    <Compile Remove="Migrations\20200901003019_Alterando o campo email para 100 caracters.Designer.cs" />
+    <Compile Remove="Migrations\20200901003228_t.cs" />
+    <Compile Remove="Migrations\20200901003228_t.Designer.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="Repositories\IRepository\" />
     <Folder Include="Repositories\Repository\" />
   </ItemGroup>

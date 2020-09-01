@@ -17,6 +17,11 @@
         public DateTime UpdatedAt { get; set; }
         public DateTime? DeletedAt { get; private set; }
 
+        public User()
+        {
+                
+        }
+
         public User(string username, string password)
         {
             this.UserName = username;

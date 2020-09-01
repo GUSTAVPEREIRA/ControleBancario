@@ -17,6 +17,7 @@
             builder.Entity<User>().Property(p => p.UpdatedAt).HasDefaultValue(DateTime.UtcNow);
             builder.Entity<User>().Property(p => p.FName).HasDefaultValue("").HasMaxLength(60);
             builder.Entity<User>().Property(p => p.LName).HasDefaultValue("").HasMaxLength(60);
+            builder.Entity<User>().Property(p => p.Email).HasDefaultValue(null).HasMaxLength(100);
             builder.Entity<User>().Property(p => p.UpdatedAt).HasDefaultValue(DateTime.UtcNow);
             builder.Entity<User>().Property(p => p.UpdatedAt).HasDefaultValue(DateTime.UtcNow);
         }

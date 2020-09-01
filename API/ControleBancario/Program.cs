@@ -1,10 +1,9 @@
 namespace ControleBancario
 {
     using Microsoft.AspNetCore.Hosting;
-    using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
-    using Microsoft.Extensions.Logging;
-    using System;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.DependencyInjection;
 
     public class Program
     {
@@ -12,7 +11,10 @@ namespace ControleBancario
         {
             var host = CreateHostBuilder(args).Build();
 
-            CreateDbIfNotExists(host);
+            UpdateDbIfExists(host);
+
+            //É instruido pela própria microsoft que isso é uma má pratica, e que à mais maleficios utilizando desta forma que beneficios!
+            //CreateDbIfNotExists(host);
 
             host.Run();
         }
@@ -24,21 +26,29 @@ namespace ControleBancario
                     webBuilder.UseStartup<Startup>();
                 });
 
-        private static void CreateDbIfNotExists(IHost host)
+
+        private static void UpdateDbIfExists(IHost host)
         {
             using var scope = host.Services.CreateScope();
-            var services = scope.ServiceProvider;
-
-            try
-            {
-                var context = services.GetRequiredService<ApplicationContext>();
-                context.Database.EnsureCreated();
-            }
-            catch (Exception ex)
-            {
-                var logger = services.GetRequiredService<ILogger<Program>>();
-                logger.LogError(ex, "An error occurred creating the DB.");
-            }
+            var db = scope.ServiceProvider.GetRequiredService<ApplicationContext>();
+            db.Database.Migrate();
         }
+
+        //private static void CreateDbIfNotExists(IHost host)
+        //{
+        //    using var scope = host.Services.CreateScope();
+        //    var services = scope.ServiceProvider;
+
+        //    try
+        //    {
+        //        var context = services.GetRequiredService<ApplicationContext>();
+        //        context.Database.EnsureCreated();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        var logger = services.GetRequiredService<ILogger<Program>>();
+        //        logger.LogError(ex, "An error occurred creating the DB.");
+        //    }
+        //}
     }
 }
