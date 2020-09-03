@@ -15,6 +15,8 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
+    using ControleBancario.MappingModel;
+    using AutoMapper;
 
     public class Startup
     {
@@ -85,6 +87,11 @@
                         new List<string>()
                     }
                 });
+
+                MappingConfig mappingConfig = new MappingConfig();
+
+                IMapper mapper = mappingConfig.GetMapperConfiguration().CreateMapper();
+                services.AddSingleton(mapper);
 
                 // Set the comments path for the Swagger JSON and UI.
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";

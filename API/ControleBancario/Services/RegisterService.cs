@@ -9,6 +9,7 @@
         public RegisterService(ref IServiceCollection services)
         {
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IUserService, UserService>();
         }
     }
 }
