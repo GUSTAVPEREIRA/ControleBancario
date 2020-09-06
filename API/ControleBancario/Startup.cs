@@ -31,6 +31,7 @@
         public void ConfigureServices(IServiceCollection services)
         {
             var key = Encoding.ASCII.GetBytes(Configuration["Jwt:Key"]);
+            services.AddAutoMapper(typeof(Startup).Assembly);
 
             services.AddControllers();
             services.AddEntityFrameworkNpgsql().AddDbContext<ApplicationContext>(options =>
@@ -91,7 +92,7 @@
                 MappingConfig mappingConfig = new MappingConfig();
 
                 IMapper mapper = mappingConfig.GetMapperConfiguration().CreateMapper();
-                services.AddSingleton(mapper);
+                services.AddSingleton(mapper);                
 
                 // Set the comments path for the Swagger JSON and UI.
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";

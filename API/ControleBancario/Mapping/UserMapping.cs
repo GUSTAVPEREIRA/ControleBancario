@@ -10,8 +10,9 @@
         {
             builder.Entity<User>().HasKey(k => k.ID);
             builder.Entity<User>().Property(p => p.ID).UseSerialColumn();
-            builder.Entity<User>().Property(p => p.UserName).HasMaxLength(30).IsRequired();
-            builder.Entity<User>().Property(p => p.Password).HasMaxLength(30).IsRequired();
+            builder.Entity<User>().Property(p => p.UserName).HasMaxLength(30).IsRequired(true);
+            builder.Entity<User>().HasIndex(p => p.UserName).IsUnique(true);
+            builder.Entity<User>().Property(p => p.Password).HasMaxLength(100).IsRequired(true);
             builder.Entity<User>().Property(p => p.DeletedAt).HasDefaultValue(new Nullable<DateTime>());
             builder.Entity<User>().Property(p => p.CreatedAt).HasDefaultValue(DateTime.UtcNow);
             builder.Entity<User>().Property(p => p.UpdatedAt).HasDefaultValue(DateTime.UtcNow);

@@ -8,6 +8,6 @@
     {
         Task<User> GetUserForPasswordAndUsername(string username, string password);
 
-        void CreateUser(UserDTO userDTO);
+        Task<User> CreateUser(UserDTO userDTO);
     }
 }

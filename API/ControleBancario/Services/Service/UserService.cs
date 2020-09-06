@@ -1,6 +1,7 @@
 ﻿namespace ControleBancario.Services.Service
-{
+{    
     using System;
+    using AutoMapper;
     using System.Linq;
     using System.Threading.Tasks;
     using ControleBancario.Model;
@@ -11,32 +12,33 @@
     public class UserService : IUserService
     {        
         private readonly ApplicationContext _context;
-
-        public UserService(ApplicationContext context)
+        private readonly IMapper _mapper;
+        public UserService(ApplicationContext context, IMapper mapper)
         {            
             _context = context;
+            _mapper = mapper;
         }
 
-        public void CreateUser(UserDTO userDTO)
+        public async Task<User> CreateUser(UserDTO userDTO)
         {
-            throw new NotImplementedException();
+            if (ExistUsernameInUser(userDTO.UserName))
+            {
+                throw new Exception("Este username já existe!");
+            }
+
+            var user = _mapper.Map<UserDTO, User>(userDTO, new User(userDTO.UserName, userDTO.Password));
+            await _context.TbUsers.AddAsync(user);
+
+            _context.SaveChanges();
+
+            return user;
         }
 
         public async Task<User> GetUserForPasswordAndUsername(string username, string password)
         {
             //Feito pois existe uma regra de hash no password
             User userAux = new User(username, password);
-
-            if (string.IsNullOrEmpty(username))
-            {
-                throw new Exception("O username é um campo obrigatório!");
-            }
-
-            if (string.IsNullOrEmpty(password))
-            {
-                throw new Exception("O password é um campo obrigatório!");
-            }
-
+          
             User user = await _context.TbUsers
                 .Where(w => w.UserName.Equals(userAux.UserName) && w.Password.Equals(userAux.Password))
                 .AsNoTracking()
@@ -44,5 +46,18 @@
 
             return user;
         }
+
+        public User GetUserForID(int id)
+        {
+            var user = _context.TbUsers.Where(w => w.ID == id).FirstOrDefault();
+            return user;
+        }
+
+        private bool ExistUsernameInUser(string username)
+        {
+            bool find = _context.TbUsers.Where(w => w.UserName.Equals(username)).Any();
+            return find;
+        }
+
     }
 }

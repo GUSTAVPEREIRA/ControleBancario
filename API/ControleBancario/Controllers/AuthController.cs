@@ -1,12 +1,12 @@
 ﻿namespace ControleBancario.Controllers
 {
     using System;
+    using ExtensionMethods;
     using System.Threading.Tasks;
     using ControleBancario.Model;
     using Microsoft.AspNetCore.Mvc;
     using ControleBancario.Model.DTO;
     using ControleBancario.Services.IService;
-    using ExtensionMethods;
 
     public class AuthController : ControllerBase
     {

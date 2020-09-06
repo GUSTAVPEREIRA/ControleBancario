@@ -3,15 +3,17 @@ using System;
 using ControleBancario;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ControleBancario.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20200906131216_PasswordAlterColumnLength")]
+    partial class PasswordAlterColumnLength
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,7 +31,7 @@ namespace ControleBancario.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2020, 9, 6, 13, 22, 34, 353, DateTimeKind.Utc).AddTicks(7600));
+                        .HasDefaultValue(new DateTime(2020, 9, 6, 13, 12, 16, 68, DateTimeKind.Utc).AddTicks(5208));
 
                     b.Property<DateTime?>("DeletedAt")
                         .ValueGeneratedOnAdd()
@@ -62,7 +64,7 @@ namespace ControleBancario.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2020, 9, 6, 13, 22, 34, 354, DateTimeKind.Utc).AddTicks(1684));
+                        .HasDefaultValue(new DateTime(2020, 9, 6, 13, 12, 16, 69, DateTimeKind.Utc).AddTicks(4458));
 
                     b.Property<string>("UserName")
                         .IsRequired()
@@ -70,9 +72,6 @@ namespace ControleBancario.Migrations
                         .HasMaxLength(30);
 
                     b.HasKey("ID");
-
-                    b.HasIndex("UserName")
-                        .IsUnique();
 
                     b.ToTable("TbUsers");
                 });

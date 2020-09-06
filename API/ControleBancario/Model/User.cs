@@ -4,9 +4,11 @@
     using System.Text;
     using ControleBancario.Helpers;
     using System.Security.Cryptography;
+    using System.ComponentModel.DataAnnotations;
 
     public class User
     {
+        [Key]
         public int ID { get; set; }
         public string UserName { get; set; }
         public string FName { get; set; }
@@ -22,22 +24,19 @@
                 
         }
 
-        public User(string username, string password)
+        public User(string username)
         {
             this.UserName = username;
-            this.SetPassword(password);
             this.CreatedAt = DateTime.UtcNow;
             this.UpdatedAt = DateTime.UtcNow;
             this.DeletedAt = new Nullable<DateTime>();
         }
 
-        public User(string username, string password, string fName = "", string lName = "", string email = "")
+        public User(string username, string fName = "", string lName = "")
         {
             this.UserName = username;
             this.FName = fName;
             this.LName = lName;
-            this.SetEmail(email);
-            this.SetPassword(password);
             this.CreatedAt = DateTime.UtcNow;
             this.UpdatedAt = DateTime.UtcNow;
             this.DeletedAt = new Nullable<DateTime>();

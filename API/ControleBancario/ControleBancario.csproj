@@ -9,6 +9,8 @@
     <Compile Remove="Migrations\20200901003019_Alterando o campo email para 100 caracters.Designer.cs" />
     <Compile Remove="Migrations\20200901003228_t.cs" />
     <Compile Remove="Migrations\20200901003228_t.Designer.cs" />
+    <Compile Remove="Migrations\20200906125606_CorreçãoUserKey.cs" />
+    <Compile Remove="Migrations\20200906125606_CorreçãoUserKey.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Repositories\IRepository\" />
