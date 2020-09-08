@@ -45,12 +45,21 @@
                     throw new Exception($"{ModelState.GenerateValidation()}");
                 }
 
-                User validUser = await _userService.GetUserForPasswordAndUsername(userAuthenticateDTO.Username, userAuthenticateDTO.Password);
+                User validUser = await _userService.GetUserForPasswordAndUsername(userAuthenticateDTO);
 
                 if (validUser == null)
                 {
                     return NotFound(new { Message = "Usuário não encontrado!" });
                 }
+
+                if (validUser.DeletedAt != null)
+                {
+                    return BadRequest(new 
+                    { 
+                        Message = $"O usuário {validUser.FName} {validUser.LName}, foi bloqueado na data {validUser.DeletedAt}!"
+                    });
+                }
+
 
                 var token = _tokenService.GenerateToken(validUser);
                 validUser.SetPassword("");

@@ -6,8 +6,13 @@
 
     public interface IUserService
     {
-        Task<User> GetUserForPasswordAndUsername(string username, string password);
-
+        Task<User> GetUserForPasswordAndUsername(UserAuthenticateDTO userAuthenticateDTO);
         Task<User> CreateUser(UserDTO userDTO);
+        User GetUserForID(int id);
+        Task UpdateUser(UserDTO userDTO);
+        User GetActivatedUserForId(int id);
+        Task LogicDeleted(int id);
+        Task UnsetLogicDeleted(int id);
+        Task PhysicalDeleted(int id);
     }
 }

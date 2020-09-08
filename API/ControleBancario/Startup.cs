@@ -2,6 +2,7 @@
 {
     using System;
     using System.IO;
+    using AutoMapper;
     using System.Text;
     using System.Reflection;
     using Microsoft.OpenApi.Models;
@@ -10,13 +11,13 @@
     using Microsoft.Extensions.Hosting;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
+    using ControleBancario.MappingModel;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.IdentityModel.Tokens;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
-    using ControleBancario.MappingModel;
-    using AutoMapper;
+    using Swashbuckle.Swagger;
 
     public class Startup
     {
@@ -30,6 +31,8 @@
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
+            services.AddMvcCore().AddNewtonsoftJson();
             var key = Encoding.ASCII.GetBytes(Configuration["Jwt:Key"]);
             services.AddAutoMapper(typeof(Startup).Assembly);
 
@@ -90,15 +93,14 @@
                 });
 
                 MappingConfig mappingConfig = new MappingConfig();
-
                 IMapper mapper = mappingConfig.GetMapperConfiguration().CreateMapper();
-                services.AddSingleton(mapper);                
+                services.AddSingleton(mapper);
 
                 // Set the comments path for the Swagger JSON and UI.
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
-            });
+            });       
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -111,8 +113,11 @@
 
             app.UseHttpsRedirection();
             app.UseRouting();
-            app.UseAuthorization();
+
+            //Detalhe importante, sempre que for configurar as autenticação, e necesário primeiro authenticar e depous autorizar nesta ordem.
             app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseSwagger();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 

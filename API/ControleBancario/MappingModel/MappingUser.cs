@@ -34,6 +34,22 @@
                     d.SetEmail(s.Email);
                 });
 
+            CreateMap<UserAuthenticateDTO, User>()
+                .ForMember(d => d.ID, opt => opt.Ignore())
+                .ForMember(d => d.UserName, opt => opt.MapFrom(s => s.Username))
+                .ForMember(d => d.FName, opt => opt.Ignore())
+                .ForMember(d => d.LName, opt => opt.Ignore())
+                .ForMember(d => d.Email, opt => opt.Ignore())
+                .ForMember(d => d.Password, opt => opt.Ignore())
+                .ForMember(d => d.UpdatedAt, opt => opt.Ignore())
+                .ForMember(d => d.DeletedAt, opt => opt.Ignore())
+                .ForMember(d => d.CreatedAt, opt => opt.Ignore())
+                .AfterMap((s, d) =>
+                {
+                    d.SetPassword(s.Password);
+                });
+
+
         }
     }
 }
