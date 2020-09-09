@@ -8,6 +8,7 @@
     using ControleBancario.Model.DTO;
     using Microsoft.EntityFrameworkCore;
     using ControleBancario.Services.IService;
+    using System.Collections.Generic;
 
     public class UserService : IUserService
     {
@@ -143,5 +144,22 @@
             _context.TbUsers.Add(user).State = EntityState.Deleted;
             await _context.SaveChangesAsync();
         }
+
+        public async Task<List<User>> GetListUsers(string filter)
+        {
+            var userList = await _context.TbUsers.ToListAsync();
+
+            if (!string.IsNullOrEmpty(filter))
+            {
+                userList = userList.Where(w => w.Email.Contains(filter) || w.LName.Contains(filter) || w.FName.Contains(filter) || w.UserName.Contains(filter)).ToList();
+            }
+
+            userList.ForEach(user =>
+            {
+                user.SetPassword("");
+            });
+
+            return userList;
+        }       
     }
 }

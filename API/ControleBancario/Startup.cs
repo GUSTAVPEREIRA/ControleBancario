@@ -17,7 +17,6 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
-    using Swashbuckle.Swagger;
 
     public class Startup
     {
@@ -63,7 +62,24 @@
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Controle Bancário", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Controle Bancário",
+                    Version = "v1",
+                    Description = "Uma aplicação feita em ASP.NET CORE WEB API",
+                    TermsOfService = new Uri("https://github.com/gustavpereira"),
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Gustavo Antonio Pereira",
+                        Email = "gugupereira123@hotmail.com",
+                        Url = new Uri("https://www.facebook.com/gustavo.antoniopereira.77/")
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "Use sobre a licensa ",
+                        Url = new Uri("https://github.com/GUSTAVPEREIRA/ControleBancario/blob/master/LICENSE")
+                    }
+                });
 
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
@@ -100,7 +116,7 @@
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
-            });       
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

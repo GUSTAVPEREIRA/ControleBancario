@@ -3,6 +3,7 @@
     using ControleBancario.Model;
     using System.Threading.Tasks;
     using ControleBancario.Model.DTO;
+    using System.Collections.Generic;
 
     public interface IUserService
     {
@@ -14,5 +15,6 @@
         Task LogicDeleted(int id);
         Task UnsetLogicDeleted(int id);
         Task PhysicalDeleted(int id);
+        Task<List<User>> GetListUsers(string filter);
     }
 }

@@ -9,7 +9,7 @@
     using ControleBancario.Services.IService;
     using Microsoft.AspNetCore.Authorization;
     using System.ComponentModel.DataAnnotations;
-
+        
     public class UserController : ControllerBase
     {
 
@@ -221,6 +221,33 @@
                 return new OkObjectResult(new
                 {
                     Message = $"Usuário {user.FName} {user.LName} foi deletado!",
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Retorna uma lista de usuários
+        /// </summary>        
+        /// <response code="200">Retorna lista de usuários</response>
+        /// <response code="400">Retorna nulo e a mensagem do erro</response>    
+        /// <param name="filter">Filtro sendo username, fname, lname, email</param>
+        /// <returns>Retorna o usuário</returns>
+        [Route("User/GetList")]
+        [HttpGet]
+        [Authorize]
+        public async Task<ActionResult<dynamic>> GetUserList([FromQuery] string filter)
+        {            
+            try
+            {
+                var userList = await _userService.GetListUsers(filter);
+
+                return new OkObjectResult(new
+                {
+                    Lista = userList
                 });
             }
             catch (Exception ex)
