@@ -16,7 +16,7 @@ namespace ControleBancario.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
-                .HasAnnotation("ProductVersion", "3.1.7")
+                .HasAnnotation("ProductVersion", "3.1.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             modelBuilder.Entity("ControleBancario.Model.Settings", b =>
@@ -70,7 +70,7 @@ namespace ControleBancario.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2020, 9, 12, 18, 17, 38, 598, DateTimeKind.Utc).AddTicks(1718));
+                        .HasDefaultValue(new DateTime(2020, 9, 13, 23, 22, 51, 966, DateTimeKind.Utc).AddTicks(3843));
 
                     b.Property<DateTime?>("DeletedAt")
                         .ValueGeneratedOnAdd()
@@ -100,13 +100,13 @@ namespace ControleBancario.Migrations
                         .HasColumnType("character varying(100)")
                         .HasMaxLength(100);
 
-                    b.Property<int?>("SettingsForeignKey")
+                    b.Property<int?>("SettingsID")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2020, 9, 12, 18, 17, 38, 598, DateTimeKind.Utc).AddTicks(2113));
+                        .HasDefaultValue(new DateTime(2020, 9, 13, 23, 22, 51, 966, DateTimeKind.Utc).AddTicks(4508));
 
                     b.Property<string>("UserName")
                         .IsRequired()
@@ -115,7 +115,7 @@ namespace ControleBancario.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("SettingsForeignKey");
+                    b.HasIndex("SettingsID");
 
                     b.HasIndex("UserName")
                         .IsUnique();
@@ -321,7 +321,7 @@ namespace ControleBancario.Migrations
                 {
                     b.HasOne("ControleBancario.Model.Settings", "Settings")
                         .WithMany("Users")
-                        .HasForeignKey("SettingsForeignKey")
+                        .HasForeignKey("SettingsID")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

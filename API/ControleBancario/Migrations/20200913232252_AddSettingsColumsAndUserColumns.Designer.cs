@@ -10,16 +10,57 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ControleBancario.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20200901003542_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20200913232252_AddSettingsColumsAndUserColumns")]
+    partial class AddSettingsColumsAndUserColumns
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
-                .HasAnnotation("ProductVersion", "3.1.7")
+                .HasAnnotation("ProductVersion", "3.1.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
+
+            modelBuilder.Entity("ControleBancario.Model.Settings", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<bool>("IsAdmin")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
+
+                    b.Property<bool>("IsCreateUser")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
+
+                    b.Property<bool>("IsManager")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("character varying(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("TbSettings");
+                });
 
             modelBuilder.Entity("ControleBancario.Model.User", b =>
                 {
@@ -31,7 +72,7 @@ namespace ControleBancario.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2020, 9, 1, 0, 35, 42, 29, DateTimeKind.Utc).AddTicks(7461));
+                        .HasDefaultValue(new DateTime(2020, 9, 13, 23, 22, 51, 966, DateTimeKind.Utc).AddTicks(3843));
 
                     b.Property<DateTime?>("DeletedAt")
                         .ValueGeneratedOnAdd()
@@ -58,13 +99,16 @@ namespace ControleBancario.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("character varying(30)")
-                        .HasMaxLength(30);
+                        .HasColumnType("character varying(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<int?>("SettingsID")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2020, 9, 1, 0, 35, 42, 30, DateTimeKind.Utc).AddTicks(5394));
+                        .HasDefaultValue(new DateTime(2020, 9, 13, 23, 22, 51, 966, DateTimeKind.Utc).AddTicks(4508));
 
                     b.Property<string>("UserName")
                         .IsRequired()
@@ -72,6 +116,11 @@ namespace ControleBancario.Migrations
                         .HasMaxLength(30);
 
                     b.HasKey("ID");
+
+                    b.HasIndex("SettingsID");
+
+                    b.HasIndex("UserName")
+                        .IsUnique();
 
                     b.ToTable("TbUsers");
                 });
@@ -268,6 +317,14 @@ namespace ControleBancario.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("ControleBancario.Model.User", b =>
+                {
+                    b.HasOne("ControleBancario.Model.Settings", "Settings")
+                        .WithMany("Users")
+                        .HasForeignKey("SettingsID")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

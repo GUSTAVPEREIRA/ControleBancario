@@ -37,6 +37,6 @@
         [Required(ErrorMessage = "O campo 'Email' é um campo obrigatório")]
         [MaxLength(30, ErrorMessage = "O campo 'Email' tem um tamanho máximo de 100 caracteres")]
         public string Email { get; set; }
-        public int SettingId { get; set; }
+        public int SettingsID { get; set; }
     }
 }

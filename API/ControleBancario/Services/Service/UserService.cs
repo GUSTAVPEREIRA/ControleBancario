@@ -32,9 +32,9 @@
 
             var user = _mapper.Map<UserDTO, User>(userDTO, new User(userDTO.UserName, userDTO.Password));
 
-            if (userDTO.SettingId != 0)
+            if (userDTO.SettingsID != 0)
             {
-                user.Settings = _settingsService.GetSettingsForID(userDTO.SettingId);
+                _settingsService.GetSettingsForID(userDTO.SettingsID);
             }
 
             await _context.TbUsers.AddAsync(user);
@@ -59,14 +59,14 @@
 
         public User GetUserForID(int id)
         {
-            var user = _context.TbUsers.Where(w => w.ID == id).AsNoTracking().FirstOrDefault();
-            
+            var user = _context.TbUsers.Where(w => w.ID == id).Include(i => i.Settings).AsNoTracking().FirstOrDefault();
+
             return user;
         }
 
         public User GetActivatedUserForId(int id)
         {
-            var user = _context.TbUsers.Where(w => w.ID == id).FirstOrDefault();
+            var user = _context.TbUsers.Where(w => w.ID == id).Include(i => i.Settings).FirstOrDefault();
 
             if (user == null)
             {
@@ -98,9 +98,9 @@
 
             user.Update();
 
-            if (userDTO.SettingId != 0)
+            if (userDTO.SettingsID != 0 && _settingsService.GetSettingsForID(userDTO.SettingsID) != null)
             {
-                user.Settings = _settingsService.GetSettingsForID(userDTO.SettingId);
+                user.SettingsID = userDTO.SettingsID;
             }
 
             if (!string.IsNullOrEmpty(userDTO.Password))
@@ -170,10 +170,10 @@
 
             userList.ForEach(user =>
             {
-                user.SetPassword("");                
+                user.SetPassword("");
             });
-           
+
             return userList;
-        }       
+        }
     }
 }

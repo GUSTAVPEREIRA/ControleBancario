@@ -3,16 +3,20 @@
     using System;
     using System.Text;
     using ControleBancario.Helpers;
-    using System.Security.Cryptography;    
+    using System.Security.Cryptography;
+    using System.ComponentModel.DataAnnotations;
 
     public class User : BaseEntityModel
     {
+        [Key]
+        public int ID { get; set; }
         public string UserName { get; set; }
         public string FName { get; set; }
         public string LName { get; set; }
         public string Password { get; private set; }
         public string Email { get; private set; }
         public Settings Settings { get; set; }
+        public int? SettingsID { get; set; }
 
         public User()
         {
@@ -76,6 +80,6 @@
             }
 
             this.Email = email;
-        }       
+        }
     }
 }

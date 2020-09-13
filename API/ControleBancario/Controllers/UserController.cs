@@ -13,7 +13,6 @@
     using System.ComponentModel.DataAnnotations;
 
     [Route("api/[controller]")]
-    [ApiController]
     public class UserController : ControllerBase
     {
 

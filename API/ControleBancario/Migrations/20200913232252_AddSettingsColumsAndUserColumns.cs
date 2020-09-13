@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ControleBancario.Migrations
 {
-    public partial class FirstMigration : Migration
+    public partial class AddSettingsColumsAndUserColumns : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -48,23 +48,22 @@ namespace ControleBancario.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TbUsers",
+                name: "TbSettings",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    UserName = table.Column<string>(maxLength: 30, nullable: false),
-                    FName = table.Column<string>(maxLength: 60, nullable: true, defaultValue: ""),
-                    LName = table.Column<string>(maxLength: 60, nullable: true, defaultValue: ""),
-                    Password = table.Column<string>(maxLength: 30, nullable: false),
-                    Email = table.Column<string>(maxLength: 100, nullable: true),
-                    CreatedAt = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2020, 9, 1, 0, 35, 42, 29, DateTimeKind.Utc).AddTicks(7461)),
-                    UpdatedAt = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2020, 9, 1, 0, 35, 42, 30, DateTimeKind.Utc).AddTicks(5394)),
-                    DeletedAt = table.Column<DateTime>(nullable: true)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    UpdatedAt = table.Column<DateTime>(nullable: false),
+                    DeletedAt = table.Column<DateTime>(nullable: true),
+                    Name = table.Column<string>(maxLength: 100, nullable: false),
+                    IsAdmin = table.Column<bool>(nullable: false, defaultValue: false),
+                    IsManager = table.Column<bool>(nullable: false, defaultValue: false),
+                    IsCreateUser = table.Column<bool>(nullable: false, defaultValue: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TbUsers", x => x.ID);
+                    table.PrimaryKey("PK_TbSettings", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -173,6 +172,33 @@ namespace ControleBancario.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "TbUsers",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                    CreatedAt = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2020, 9, 13, 23, 22, 51, 966, DateTimeKind.Utc).AddTicks(3843)),
+                    UpdatedAt = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2020, 9, 13, 23, 22, 51, 966, DateTimeKind.Utc).AddTicks(4508)),
+                    DeletedAt = table.Column<DateTime>(nullable: true),
+                    UserName = table.Column<string>(maxLength: 30, nullable: false),
+                    FName = table.Column<string>(maxLength: 60, nullable: true, defaultValue: ""),
+                    LName = table.Column<string>(maxLength: 60, nullable: true, defaultValue: ""),
+                    Password = table.Column<string>(maxLength: 100, nullable: false),
+                    Email = table.Column<string>(maxLength: 100, nullable: true),
+                    SettingsID = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TbUsers", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_TbUsers_TbSettings_SettingsID",
+                        column: x => x.SettingsID,
+                        principalTable: "TbSettings",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -209,6 +235,17 @@ namespace ControleBancario.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TbUsers_SettingsID",
+                table: "TbUsers",
+                column: "SettingsID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TbUsers_UserName",
+                table: "TbUsers",
+                column: "UserName",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -236,6 +273,9 @@ namespace ControleBancario.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "TbSettings");
         }
     }
 }

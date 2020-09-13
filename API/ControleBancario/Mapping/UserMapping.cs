@@ -17,7 +17,7 @@
             builder.Entity<User>().Property(p => p.LName).HasDefaultValue("").HasMaxLength(60);
             builder.Entity<User>().Property(p => p.Email).HasDefaultValue(null).HasMaxLength(100);
             builder.Entity<User>().HasOne(p => p.Settings).WithMany(p => p.Users)
-                .HasForeignKey("SettingsForeignKey").OnDelete(DeleteBehavior.Restrict).IsRequired(false);
+                .IsRequired(false).OnDelete(DeleteBehavior.Restrict);          
             builder.Entity<User>().Property(p => p.DeletedAt).HasDefaultValue(new Nullable<DateTime>());
             builder.Entity<User>().Property(p => p.CreatedAt).HasDefaultValue(DateTime.UtcNow);
             builder.Entity<User>().Property(p => p.UpdatedAt).HasDefaultValue(DateTime.UtcNow);
