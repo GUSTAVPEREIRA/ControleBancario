@@ -8,6 +8,8 @@
     using ControleBancario.Model.DTO;
     using ControleBancario.Services.IService;
 
+    [Route("api/[controller]")]
+    [ApiController]
     public class AuthController : ControllerBase
     {
         private readonly IUserService _userService;

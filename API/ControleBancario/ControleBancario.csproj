@@ -11,6 +11,18 @@
     <Compile Remove="Migrations\20200901003228_t.Designer.cs" />
     <Compile Remove="Migrations\20200906125606_CorreçãoUserKey.cs" />
     <Compile Remove="Migrations\20200906125606_CorreçãoUserKey.Designer.cs" />
+    <Compile Remove="Migrations\20200912174203_create-SettingsMap.cs" />
+    <Compile Remove="Migrations\20200912174203_create-SettingsMap.Designer.cs" />
+    <Compile Remove="Migrations\20200912175747_AddColumnSettings.cs" />
+    <Compile Remove="Migrations\20200912175747_AddColumnSettings.Designer.cs" />
+    <Compile Remove="Migrations\20200912180213_AddColumnSettings.cs" />
+    <Compile Remove="Migrations\20200912180213_AddColumnSettings.Designer.cs" />
+    <Compile Remove="Migrations\20200912180551_AddColumnSettings.cs" />
+    <Compile Remove="Migrations\20200912180551_AddColumnSettings.Designer.cs" />
+    <Compile Remove="Migrations\20200912180715_AddColumnSettings.cs" />
+    <Compile Remove="Migrations\20200912180715_AddColumnSettings.Designer.cs" />
+    <Compile Remove="Migrations\20200912181037_AddSettingsColumn.cs" />
+    <Compile Remove="Migrations\20200912181037_AddSettingsColumn.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Repositories\IRepository\" />
@@ -19,23 +31,24 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.7" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.7" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.7" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.7" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.7">
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.8">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.7" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.7">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.8">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="3.1.7" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="3.1.8" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.4" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="5.5.1" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.5.1" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.5.1" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUi" Version="5.5.1" />

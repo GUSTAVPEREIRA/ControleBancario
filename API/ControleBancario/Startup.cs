@@ -62,6 +62,7 @@
 
             services.AddSwaggerGen(c =>
             {
+                c.EnableAnnotations(true);
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = "Controle Bancário",
@@ -115,7 +116,7 @@
                 // Set the comments path for the Swagger JSON and UI.
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                c.IncludeXmlComments(xmlPath);
+                c.IncludeXmlComments(xmlPath);                
             });
         }
 

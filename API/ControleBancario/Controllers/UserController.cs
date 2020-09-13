@@ -6,10 +6,14 @@
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
     using ControleBancario.Model.DTO;
+    using System.Collections.Generic;
     using ControleBancario.Services.IService;
     using Microsoft.AspNetCore.Authorization;
+    using Swashbuckle.AspNetCore.Annotations;
     using System.ComponentModel.DataAnnotations;
-        
+
+    [Route("api/[controller]")]
+    [ApiController]
     public class UserController : ControllerBase
     {
 
@@ -39,9 +43,10 @@
         /// <response code="200">Retorna o usuário criado</response>
         /// <response code="400">Retorna nulo e a mensagem do erro</response>            
         /// <returns>Retorna o usuário</returns>
-        [Route("User/Create")]
+        [Route("Create")]
         [HttpPost]
         [Authorize]
+        [SwaggerResponse(200, "Usuário criado!", typeof(User))]
         public async Task<ActionResult<dynamic>> CreateUser([FromBody] UserDTO userDTO)
         {
             try
@@ -74,9 +79,10 @@
         /// <response code="400">Retorna nulo e a mensagem do erro</response>      
         /// <param name="id">Código do usuário</param>
         /// <returns>Retorna o usuário</returns>
-        [Route("User/Get")]
+        [Route("Get")]
         [HttpGet]
         [Authorize]
+        [SwaggerResponse(200, "Usuário encontrado", typeof(User))]        
         public ActionResult<dynamic> GetUser([FromQuery, Required] int id)
         {
             try
@@ -120,9 +126,10 @@
         /// <response code="200">Retorna o usuário atualizado</response>
         /// <response code="400">Retorna nulo e a mensagem do erro</response>            
         /// <returns>Retorna o usuário</returns>
-        [Route("User/Update")]
+        [Route("Update")]
         [HttpPut]
         [Authorize]
+        [SwaggerResponse(200, "Usuário atualizado", typeof(User))]
         public async Task<ActionResult<dynamic>> UpdateUser([FromBody] UserDTO userDTO)
         {
             try
@@ -150,9 +157,10 @@
         /// <response code="400">Retorna nulo e a mensagem do erro</response>       
         /// <param name="id">Código do usuário</param>
         /// <returns>Retorna o usuário</returns>
-        [Route("User/Disable")]
+        [Route("Disable")]
         [HttpDelete]
         [Authorize]
+        [SwaggerResponse(200, "Usuário foi desabilitado!", typeof(User))]
         public async Task<ActionResult<dynamic>> DisableUser([FromQuery, Required] int id)
         {
             try
@@ -179,9 +187,10 @@
         /// <response code="400">Retorna nulo e a mensagem do erro</response>  
         /// <param name="id">Código do usuário</param>
         /// <returns>Retorna o usuário</returns>
-        [Route("User/Enable")]
+        [Route("Enable")]
         [HttpPut]
         [Authorize]
+        [SwaggerResponse(200, "Usuário foi habilitado!", typeof(User))]
         public async Task<ActionResult<dynamic>> EnableUser([FromQuery, Required] int id)
         {
             try
@@ -208,9 +217,10 @@
         /// <response code="400">Retorna nulo e a mensagem do erro</response>    
         /// <param name="id">Código do usuário</param>
         /// <returns>Retorna o usuário</returns>
-        [Route("User/Delete")]
+        [Route("Delete")]
         [HttpDelete]
         [Authorize]
+        [SwaggerResponse(200, "Usuário {Gustavo} {Pereira} foi deletado!")]
         public async Task<ActionResult<dynamic>> DeletedUser([FromQuery, Required] int id)
         {
             try
@@ -236,11 +246,12 @@
         /// <response code="400">Retorna nulo e a mensagem do erro</response>    
         /// <param name="filter">Filtro sendo username, fname, lname, email</param>
         /// <returns>Retorna o usuário</returns>
-        [Route("User/GetList")]
+        [Route("GetList")]
         [HttpGet]
         [Authorize]
+        [SwaggerResponse(200, "Lista de usuários", typeof(List<User>))]
         public async Task<ActionResult<dynamic>> GetUserList([FromQuery] string filter)
-        {            
+        {
             try
             {
                 var userList = await _userService.GetListUsers(filter);

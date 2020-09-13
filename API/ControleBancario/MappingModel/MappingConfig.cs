@@ -9,6 +9,7 @@
             var mappingConfig = new MapperConfiguration(mapper =>
             {
                 mapper.AddProfile(new MappingUser());
+                mapper.AddProfile(new MappingSettings());
             });
 
 #if DEBUG
@@ -16,7 +17,6 @@
 #endif
 
             return mappingConfig;
-
         }
     }
 }

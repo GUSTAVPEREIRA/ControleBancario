@@ -6,18 +6,21 @@
     using System.Threading.Tasks;
     using ControleBancario.Model;
     using ControleBancario.Model.DTO;
+    using System.Collections.Generic;
     using Microsoft.EntityFrameworkCore;
     using ControleBancario.Services.IService;
-    using System.Collections.Generic;
 
     public class UserService : IUserService
     {
         private readonly ApplicationContext _context;
         private readonly IMapper _mapper;
-        public UserService(ApplicationContext context, IMapper mapper)
+        private readonly ISettingsService _settingsService;
+
+        public UserService(ApplicationContext context, IMapper mapper, ISettingsService settingsService)
         {
             _context = context;
             _mapper = mapper;
+            _settingsService = settingsService;
         }
 
         public async Task<User> CreateUser(UserDTO userDTO)
@@ -28,6 +31,12 @@
             }
 
             var user = _mapper.Map<UserDTO, User>(userDTO, new User(userDTO.UserName, userDTO.Password));
+
+            if (userDTO.SettingId != 0)
+            {
+                user.Settings = _settingsService.GetSettingsForID(userDTO.SettingId);
+            }
+
             await _context.TbUsers.AddAsync(user);
 
             _context.SaveChanges();
@@ -88,6 +97,11 @@
             }
 
             user.Update();
+
+            if (userDTO.SettingId != 0)
+            {
+                user.Settings = _settingsService.GetSettingsForID(userDTO.SettingId);
+            }
 
             if (!string.IsNullOrEmpty(userDTO.Password))
             {
@@ -156,9 +170,9 @@
 
             userList.ForEach(user =>
             {
-                user.SetPassword("");
+                user.SetPassword("");                
             });
-
+           
             return userList;
         }       
     }

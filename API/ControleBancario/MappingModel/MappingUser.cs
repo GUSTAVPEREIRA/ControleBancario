@@ -28,6 +28,7 @@
                 .ForMember(d => d.UpdatedAt, opt => opt.Ignore())
                 .ForMember(d => d.DeletedAt, opt => opt.Ignore())
                 .ForMember(d => d.CreatedAt, opt => opt.Ignore())
+                .ForMember(d => d.Settings, opt => opt.Ignore())
                 .AfterMap((s, d) =>
                 {
                     d.SetPassword(s.Password);
@@ -44,12 +45,11 @@
                 .ForMember(d => d.UpdatedAt, opt => opt.Ignore())
                 .ForMember(d => d.DeletedAt, opt => opt.Ignore())
                 .ForMember(d => d.CreatedAt, opt => opt.Ignore())
+                .ForMember(d => d.Settings, opt => opt.Ignore())
                 .AfterMap((s, d) =>
                 {
                     d.SetPassword(s.Password);
                 });
-
-
         }
     }
 }

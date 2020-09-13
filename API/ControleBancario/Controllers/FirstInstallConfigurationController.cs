@@ -7,6 +7,8 @@
     using ControleBancario.Model.DTO;
     using ControleBancario.Services.IService;
 
+    [Route("api/[controller]")]
+    [ApiController]
     public class FirstInstallConfigurationController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -32,7 +34,7 @@
         /// <response code="400">Retorna nulo e a mensagem do erro</response>            
         /// <returns>Retorna o usuário</returns>
 
-        [Route("FirstInstall")]
+        [Route("")]
         [HttpPost]
         public async Task<ActionResult<dynamic>> FirstIntall([FromBody] ConfigurationDTO configuration)
         {

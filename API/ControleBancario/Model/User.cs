@@ -3,25 +3,20 @@
     using System;
     using System.Text;
     using ControleBancario.Helpers;
-    using System.Security.Cryptography;
-    using System.ComponentModel.DataAnnotations;
+    using System.Security.Cryptography;    
 
-    public class User
+    public class User : BaseEntityModel
     {
-        [Key]
-        public int ID { get; set; }
         public string UserName { get; set; }
         public string FName { get; set; }
         public string LName { get; set; }
         public string Password { get; private set; }
         public string Email { get; private set; }
-        public DateTime CreatedAt { get; private set; }
-        public DateTime UpdatedAt { get; set; }
-        public DateTime? DeletedAt { get; private set; }
+        public Settings Settings { get; set; }
 
         public User()
         {
-                
+
         }
 
         public User(string username)
@@ -43,7 +38,7 @@
         }
 
         public void SetPassword(string password)
-        {            
+        {
             if (!string.IsNullOrEmpty(password))
             {
                 this.Password = password;
@@ -79,25 +74,8 @@
             {
                 throw ex;
             }
-            
+
             this.Email = email;
-        }
-
-        public void SetLogicDeleted()
-        {
-            this.DeletedAt = DateTime.UtcNow;
-            this.Update();
-        }
-
-        public void UnsetLogicDeleted()
-        {
-            this.DeletedAt = new Nullable<DateTime>();
-            this.Update();
-        }
-
-        public void Update()
-        {
-            this.UpdatedAt = DateTime.UtcNow;
-        }
+        }       
     }
 }

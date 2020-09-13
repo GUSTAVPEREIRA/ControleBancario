@@ -10,6 +10,7 @@
         {            
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ISettingsService, SettingsService>();
         }
     }
 }

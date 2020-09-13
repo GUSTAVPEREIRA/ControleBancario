@@ -13,13 +13,13 @@
             builder.Entity<User>().Property(p => p.UserName).HasMaxLength(30).IsRequired(true);
             builder.Entity<User>().HasIndex(p => p.UserName).IsUnique(true);
             builder.Entity<User>().Property(p => p.Password).HasMaxLength(100).IsRequired(true);
-            builder.Entity<User>().Property(p => p.DeletedAt).HasDefaultValue(new Nullable<DateTime>());
-            builder.Entity<User>().Property(p => p.CreatedAt).HasDefaultValue(DateTime.UtcNow);
-            builder.Entity<User>().Property(p => p.UpdatedAt).HasDefaultValue(DateTime.UtcNow);
             builder.Entity<User>().Property(p => p.FName).HasDefaultValue("").HasMaxLength(60);
             builder.Entity<User>().Property(p => p.LName).HasDefaultValue("").HasMaxLength(60);
             builder.Entity<User>().Property(p => p.Email).HasDefaultValue(null).HasMaxLength(100);
-            builder.Entity<User>().Property(p => p.UpdatedAt).HasDefaultValue(DateTime.UtcNow);
+            builder.Entity<User>().HasOne(p => p.Settings).WithMany(p => p.Users)
+                .HasForeignKey("SettingsForeignKey").OnDelete(DeleteBehavior.Restrict).IsRequired(false);
+            builder.Entity<User>().Property(p => p.DeletedAt).HasDefaultValue(new Nullable<DateTime>());
+            builder.Entity<User>().Property(p => p.CreatedAt).HasDefaultValue(DateTime.UtcNow);
             builder.Entity<User>().Property(p => p.UpdatedAt).HasDefaultValue(DateTime.UtcNow);
         }
     }

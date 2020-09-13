@@ -8,6 +8,7 @@
     public class ApplicationContext : IdentityDbContext
     {
         public DbSet<User> TbUsers { get; set; }
+        public DbSet<Settings> TbSettings { get; set; }
 
         public ApplicationContext()
         {
@@ -30,6 +31,7 @@
         protected override void OnModelCreating(ModelBuilder builder)
         {
             new UserMapping().Mapping(ref builder);
+            new SettingsMapping().Mapping(ref builder);
 
             base.OnModelCreating(builder);
         }
