@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30225.117
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleBancario", "ControleBancario\ControleBancario.csproj", "{4E929A30-1479-4B0D-8144-8FF78BAC40E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControleBancario", "ControleBancario\ControleBancario.csproj", "{4E929A30-1479-4B0D-8144-8FF78BAC40E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleBancarioTestes", "ControleBancarioTestes\ControleBancarioTestes.csproj", "{4727B662-D822-4B3D-B5A0-3AD87D7CA34C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{4E929A30-1479-4B0D-8144-8FF78BAC40E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E929A30-1479-4B0D-8144-8FF78BAC40E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E929A30-1479-4B0D-8144-8FF78BAC40E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4727B662-D822-4B3D-B5A0-3AD87D7CA34C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4727B662-D822-4B3D-B5A0-3AD87D7CA34C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4727B662-D822-4B3D-B5A0-3AD87D7CA34C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4727B662-D822-4B3D-B5A0-3AD87D7CA34C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
