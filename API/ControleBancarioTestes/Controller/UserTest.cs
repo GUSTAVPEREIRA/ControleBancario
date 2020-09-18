@@ -52,6 +52,15 @@
         }
 
 
+        private void Initialize()
+        {
+            Context();
+            MapperServiceConfigureProvider();
+            SettingsServiceConfigureProvider();
+            UserServiceConfigureProvider();
+        }
+
+
         [Theory(DisplayName = "I want create a new user")]
         [InlineData("MANAGEMENT", "MANAGEMENT", "ADMIN", "Gustavo", "Pereira", "gugupereira123@hotmail.com")]
         [InlineData("ADMIN", "ADMIN", "ADMIN", "Gustavo", "Pereira", "gugupereira123@hotmail.com")]
@@ -59,11 +68,7 @@
         public async Task CreateUser(string expectedUsername, string username, string password, string fname, string lname, string email)
         {
             //ARRANGE
-            Context();
-            MapperServiceConfigureProvider();
-            SettingsServiceConfigureProvider();
-            UserServiceConfigureProvider();
-            
+            Initialize();
             UserDTO dto = new UserDTO(username, fname, lname, password, email);
 
             //ACT
@@ -71,6 +76,29 @@
 
             //ASSERT
             Assert.Equal(expectedUsername, user.UserName);
+        }
+
+        [Theory(DisplayName = "I want update a user")]
+        [InlineData("Pereira", "Gustavo", "ADMIN", "Gustavo", "Pereira", "ADMIN", "gugupereira123@hotmail.com")]
+        [InlineData("Teste", "Teste2", "ADMIN", "Gustavo", "Pereira", "ADMIN", "gugupereira123@hotmail.com")]
+        [InlineData("teste3", "TESTE3", "ADMIN", "Gustavo", "Pereira", "ADMIN", "gugupereira123@hotmail.com")]
+        public async Task UpdateUser(string expectedFname, string expectedLname, string fname, string lname, string username, string password, string email)
+        {
+            //ARRANGE
+            Initialize();
+            UserDTO dto = new UserDTO(username, fname, lname, password, email);
+            var user = await _userService.CreateUser(dto);
+            dto.ID = user.ID;
+            dto.FName = expectedFname;
+            dto.LName = expectedLname;
+
+            //ACT
+            await _userService.UpdateUser(dto);
+            user = _userService.GetUserForID(dto.ID);
+
+            //ASSERT
+            Assert.Equal(expectedFname, user.FName);
+            Assert.Equal(expectedLname, user.LName);
         }
     }
 }
