@@ -26,6 +26,7 @@
 
         public Settings(string name)
         {
+            Name = name;
             UpdatedAt = DateTime.UtcNow;
             CreatedAt = DateTime.UtcNow;
             DeletedAt = new Nullable<DateTime>();
@@ -40,6 +41,6 @@
 
         [JsonIgnore]
         [IgnoreDataMember]
-        public List<User> Users { get; set; }       
+        public List<User> Users { get; set; }
     }
 }

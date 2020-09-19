@@ -98,9 +98,14 @@
 
             user.Update();
 
-            if (userDTO.SettingsID != 0 && _settingsService.GetSettingsForID(userDTO.ID) != null)
+            if (userDTO.SettingsID != 0 && _settingsService.GetSettingsForID(userDTO.SettingsID) != null)
             {
                 user.SettingsID = userDTO.SettingsID;
+            }
+            else
+            {
+                user.Settings = null;
+                user.SettingsID = 0;
             }
 
             if (!string.IsNullOrEmpty(userDTO.Password))
