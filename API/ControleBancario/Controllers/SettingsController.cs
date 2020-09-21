@@ -244,7 +244,7 @@
 
                 return new OkObjectResult(new
                 {
-                    Message = "Configuração foi deletada!",
+                    Message = "Configuração foi deletada",
                     Setting = setting
                 });
             }
