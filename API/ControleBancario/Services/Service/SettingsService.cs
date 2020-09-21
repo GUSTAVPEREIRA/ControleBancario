@@ -30,7 +30,7 @@
             return settings;
         }
 
-        public List<Settings> GetSettings(string filter, bool? isAdmin, bool? isManager, bool? isCreateUser)
+        public List<Settings> GetSettings(string filter, bool? isAdmin = true, bool? isManager = true, bool? isCreateUser = true)
         {
             var settings = _context.TbSettings.AsQueryable();
 
